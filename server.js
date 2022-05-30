@@ -68,31 +68,30 @@ const handlrequest = async (index, sitename) => {
     console.log(error);
   });
 
-  let data = respond.text();
+  let data = await respond.text();
   saveEmail(data);
 };
 
 //handleReq();
 
-cron.schedule("10 * * * * *", () => {
+cron.schedule("1 * * * * *", () => {
   console.log("twitter run ");
   //for twitter
-  if (twitterIndex > 200) {
-    handlrequest(twitterIndex, "twitter.com");
-    // handelreqforbing(twitterIndex, "twitter.com");
-    Indexs.twitterIndex += 10;
-  }
+
+  handlrequest(Indexs.twitterIndex, "twitter.com");
+  // handelreqforbing(Indexs.twitterIndex, "twitter.com");
+  console.log("---------------");
+  Indexs.twitterIndex += 10;
 });
 // for Linkedin
-cron.schedule("20 * * * * *", () => {
+cron.schedule("1 * * * * *", () => {
   console.log("linkedin run ");
-  if (linkedin > 200) {
-    handlrequest(linkedin, "linkedin.com");
-    //handelreqforbing(linkedin, "linkedin.com");
-    Indexs.linkedin += 10;
-  }
+  handlrequest(Indexs.linkedin, "linkedin.com");
+  //handelreqforbing(Indexs.linkedin, "linkedin.com");
+  Indexs.linkedin += 10;
 });
-//handelreqforbing(11, "linkedin.com");
+// //handelreqforbing(11, "linkedin.com");
+//handlrequest(Indexs.twitterIndex, "twitter.com");
 
 app.listen(port, () => {
   console.log("run--------->");
